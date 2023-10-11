@@ -1,7 +1,9 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-
+import { ConfigProvider } from 'antd';
+import { black, blackLight, blue, gray, red, white } from '@/constants/colors';
+import Navbar from '@/components/navbar/navbar';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -16,7 +18,33 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <ConfigProvider
+        theme={{
+          components: {
+            Pagination: {
+              itemActiveBg: blue,
+              itemBg: red,
+              // itemInputBg: red,
+              // itemLinkBg: red,
+              colorPrimaryHover: gray,
+              colorBgTextHover: blue
+            },
+            Card: {
+              actionsBg: black
+            },
+          },
+          token: {
+            colorBgContainer: blackLight,
+            colorText: white,
+            colorBorderSecondary: blackLight
+          },
+        }}
+      >
+      <body className={inter.className}>
+        <Navbar />
+        {children}
+      </body>
+    </ConfigProvider>
     </html>
   )
 }
